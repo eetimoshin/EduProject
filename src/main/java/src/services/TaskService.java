@@ -1,5 +1,10 @@
 package src.services;
 
+import org.springframework.ui.Model;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import src.models.Task;
 import src.repositories.TaskRepository;
 import src.requests.TaskRequest;
@@ -11,7 +16,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 
 @AllArgsConstructor
 @Service
@@ -20,29 +27,47 @@ public class TaskService {
     private final TaskRepository taskRepository;
     private final TestRepository testRepository;
 
-    public Task save(TaskRequest taskRequest, String topicId) {
+    public List<Task> showAllTasks() {
+        return taskRepository.findAll();
+    }
+
+    public Task showTaskById(String id) {
+        return taskRepository.findByTaskUuid(id).orElseThrow(
+                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Message with ID: " + id + "  not found"));
+    }
+
+    public Task createTask(TaskRequest taskRequest) {
         validateMessageRequest(taskRequest);
         Task task = new Task();
+        task.setTitle(taskRequest.title());
         task.setText(taskRequest.text());
-        task.setCreatedAt(OffsetDateTime.now().truncatedTo(ChronoUnit.SECONDS).toString());
-        task.setTest(testRepository.findByTestUuid(topicId).orElse(null));
+        task.setCorrectAnswer(taskRequest.correctAnswer());
+        task.setCreatedAt(OffsetDateTime.now());
+
         return taskRepository.save(task);
     }
 
 
-    public Test update(String messageIdToUpdate, TaskRequest updatedTaskRequest) {
-        Task taskToUpdate = findByUuid(messageIdToUpdate);
-        validateMessageRequest(updatedTaskRequest);
-
+    public Task updateTask(String messageIdToUpdate, TaskRequest updatedTaskRequest) {
+//        checkTaskDoesNotExist(updatedTaskRequest.text());
+        Task taskToUpdate = showTaskById(messageIdToUpdate);
+        taskToUpdate.setTitle(updatedTaskRequest.title());
         taskToUpdate.setText(updatedTaskRequest.text());
-        taskRepository.save(taskToUpdate);
+        taskToUpdate.setCorrectAnswer(updatedTaskRequest.correctAnswer());
 
-        return testRepository.findByTestUuid(taskToUpdate.getTest().getTestUuid())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Topic not found"));
+        return taskRepository.save(taskToUpdate);
     }
 
-    public void delete(String id) {
-        Task task = findByUuid(id);
+    public void deleteTask(String id) {
+        Task task = taskRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Task not found"));
+
+        List<Test> testsWithTask = testRepository.findAllByTasksContaining(task);
+        for (Test test : testsWithTask) {
+            test.getTasks().remove(task);
+            testRepository.save(test);
+        }
+
         taskRepository.delete(task);
     }
 
@@ -53,8 +78,10 @@ public class TaskService {
         }
     }
 
-    private Task findByUuid(String id) {
-        return taskRepository.findByTaskUuid(id).orElseThrow(
-                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Message not found with ID: " + id));
+    public boolean checkAnswer(String taskId, String userAnswer) {
+        Task task = taskRepository.findById(taskId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Task not found"));
+
+        return task.getCorrectAnswer().trim().equalsIgnoreCase(userAnswer.trim());
     }
 }

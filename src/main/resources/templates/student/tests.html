@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Тесты курса</title>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6f8;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+
+        a.back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #2980b9;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a.back-link:hover {
+            color: #1c5980;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #ecf0f1;
+            margin: 10px 0;
+            padding: 15px 20px;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+        }
+
+        li:hover {
+            background-color: #d0dce5;
+        }
+
+        li a {
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: 500;
+        }
+
+        li a:hover {
+            color: #1a5276;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Тесты курса</h1>
+    <a class="back-link" th:href="@{/student/courses}">← Назад к курсам</a>
+    <ul>
+        <li th:each="test : ${tests}">
+            <a th:href="@{'/student/tests/' + ${test.testUuid} + '/tasks'}"
+               th:text="${test.title}">Тест</a>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Редактировать курс</title>
+    <meta charset="UTF-8"/>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+            padding: 40px;
+            color: #2c3e50;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #34495e;
+        }
+        form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        form input[type="text"] {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 25px;
+            border: 1.5px solid #ccc;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        form input[type="text"]:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+        button[type="submit"] {
+            width: 100%;
+            padding: 14px;
+            background-color: #2ecc71;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button[type="submit"]:hover {
+            background-color: #27ae60;
+        }
+        .back-link {
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+            color: #3498db;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: text-decoration 0.3s ease;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Редактировать курс</h1>
+
+    <form th:action="@{/courses/{id}/edit(id=${course.courseUuid})}" method="post" th:object="${course}">
+        <label for="name">Название курса:</label>
+        <input type="text" id="name" th:field="*{name}" required placeholder="Введите название курса"/>
+
+        <button type="submit">Сохранить</button>
+    </form>
+
+    <a th:href="@{/courses/{id}(id=${course.courseUuid})}" class="back-link">← Назад к деталям курса</a>
+</div>
+</body>
+</html>

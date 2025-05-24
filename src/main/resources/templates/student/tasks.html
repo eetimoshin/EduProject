@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="'Тест: ' + ${test.title}">Прохождение теста</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+            padding: 40px;
+            color: #2c3e50;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        form {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .task {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+        .task h3 {
+            margin-top: 0;
+        }
+        textarea {
+            width: 100%;
+            height: 80px;
+            margin-top: 10px;
+            padding: 10px;
+            font-size: 15px;
+            border: 1.5px solid #ccc;
+            border-radius: 6px;
+            resize: vertical;
+        }
+        button {
+            display: block;
+            margin: 30px auto 0;
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            background-color: #27ae60;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #219150;
+        }
+        .back-button {
+            display: block;
+            width: fit-content;
+            margin: 30px auto 0;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        .back-button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+
+<h1 th:text="${test.title}">Название теста</h1>
+
+<form th:action="@{/student/tests/{testId}/submit(testId=${test.testUuid})}" method="post">
+    <div th:each="task : ${test.tasks}" class="task">
+        <h3 th:text="${task.title}">Название задания</h3>
+        <p th:text="${task.text}">Текст задания</p>
+        <label>
+            Ваш ответ:
+            <textarea th:name="${task.taskUuid}"></textarea>
+        </label>
+    </div>
+
+    <button type="submit">Отправить ответы</button>
+</form>
+
+<a th:href="@{/student/courses}" class="back-button">← Назад к курсам</a>
+
+</body>
+</html>

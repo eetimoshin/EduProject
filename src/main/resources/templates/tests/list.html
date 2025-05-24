@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Список тестов</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+            padding: 40px;
+            color: #2c3e50;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+        .create-link {
+            display: block;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .create-link a {
+            background-color: #2ecc71;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        .create-link a:hover {
+            background-color: #27ae60;
+        }
+        ul {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0;
+            list-style-type: none;
+        }
+        li {
+            background: white;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .test-info {
+            flex-grow: 1;
+        }
+        .test-info a {
+            font-size: 1.2rem;
+            color: #2c3e50;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .test-info a:hover {
+            text-decoration: underline;
+        }
+        .test-info span {
+            font-size: 0.9rem;
+            color: #777;
+            display: block;
+            margin-top: 4px;
+        }
+        .test-actions {
+            display: flex;
+            gap: 10px;
+        }
+        .test-actions a,
+        .test-actions button {
+            padding: 8px 14px;
+            border: none;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .test-actions a {
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+        }
+        .test-actions a:hover {
+            background-color: #2980b9;
+        }
+        .test-actions button {
+            background-color: #e74c3c;
+            color: white;
+        }
+        .test-actions button:hover {
+            background-color: #c0392b;
+        }
+        form {
+            display: inline;
+        }
+    </style>
+</head>
+<body>
+<a class="back-link" href="/dashboard">⬅ Назад в панель администратора</a>
+
+<h1>Список тестов</h1>
+
+<div class="create-link">
+    <a th:href="@{/tests/create}">Создать новый тест</a>
+</div>
+
+<ul>
+    <li th:each="test : ${tests}">
+        <div class="test-info">
+            <a th:href="@{/tests/{id}/view(id=${test.testUuid})}"
+               th:text="${test.title}">Название</a>
+            <span>Создан: <span th:text="${#temporals.format(test.createdAt, 'dd.MM.yyyy HH:mm:ss')}">дата</span></span>
+        </div>
+        <div class="test-actions">
+            <a th:href="@{/tests/{id}/edit(id=${test.testUuid})}">Редактировать</a>
+            <form th:action="@{/tests/{id}/delete(id=${test.testUuid})}" method="post">
+                <button type="submit">Удалить</button>
+            </form>
+        </div>
+    </li>
+</ul>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Курсы</title>
+    <meta charset="UTF-8"/>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f5f7fa;
+            margin: 0;
+            padding: 40px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+
+        .course-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .course-list li {
+            background-color: #ecf0f1;
+            margin-bottom: 12px;
+            padding: 15px 20px;
+            border-radius: 8px;
+            transition: background-color 0.2s ease;
+        }
+
+        .course-list li:hover {
+            background-color: #d0d7dd;
+        }
+
+        .course-list a {
+            text-decoration: none;
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 1.1rem;
+        }
+
+        .add-course {
+            display: inline-block;
+            margin-bottom: 20px;
+            background-color: #3498db;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        .add-course:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <a class="back-link" href="/dashboard">⬅ Назад в панель администратора</a>
+
+    <h1>Список курсов</h1>
+
+    <a href="/courses/new" class="add-course">➕ Создать курс</a>
+
+    <ul class="course-list">
+        <li th:each="course : ${courses}">
+            <a th:href="@{/courses/{id}(id=${course.courseUuid})}"
+               th:text="${course.name}">Название курса</a>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

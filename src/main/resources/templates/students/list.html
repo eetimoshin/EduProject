@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Список студентов</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+            padding: 40px;
+            color: #2c3e50;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px 40px;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 40px;
+        }
+        th, td {
+            padding: 12px 16px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #f0f3f5;
+            font-weight: bold;
+        }
+        form {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+        }
+        input[type="text"] {
+            padding: 10px 14px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            width: 250px;
+            outline-color: #3498db;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .action-label {
+            font-weight: bold;
+            min-width: 80px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <a class="back-link" href="/dashboard">⬅ Назад в панель администратора</a>
+
+    <h1>Список студентов</h1>
+
+    <table>
+        <thead>
+        <tr>
+            <th>UUID</th>
+            <th>Фамилия</th>
+            <th>Имя</th>
+            <th>Группа</th>
+            <th>Курс</th>
+            <th>Логин</th>
+            <th>Пароль</th>
+            <th>Комментарий</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="student : ${students}">
+            <td th:text="${student.studentUuid}">UUID</td>
+            <td th:text="${student.surname}">Фамилия</td>
+            <td th:text="${student.name}">Имя</td>
+            <td th:text="${student.academicGroup}">Группа</td>
+            <td th:text="${student.course}">Курс</td>
+            <td th:text="${student.login}">Логин</td>
+            <td th:text="${student.password}">Пароль</td>
+            <td th:text="${student.comment}">Комментарий</td>
+        </tr>
+        </tbody>
+    </table>
+
+
+    <form th:action="@{/students/upload}" method="post">
+        <label class="action-label" for="uploadFilename">Загрузить CSV:</label>
+        <input type="text" id="uploadFilename" name="filename" placeholder="Введите имя файла" required />
+        <button type="submit">Загрузить</button>
+    </form>
+
+    <form th:action="@{/students/delete}" method="post">
+        <label class="action-label" for="deleteFilename">Удалить CSV:</label>
+        <input type="text" id="deleteFilename" name="filename" placeholder="Введите имя файла" required />
+        <button type="submit">Удалить</button>
+    </form>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Просмотр задачи</title>
+</head>
+<body>
+<h1>Задача</h1>
+<p><strong>Текст:</strong> <span th:text="${task.text}"></span></p>
+
+<form th:action="@{'/tasks/' + ${task.id} + '/check'}" method="post" onsubmit="checkAnswer(event, this)">
+    <input type="text" name="userAnswer" placeholder="Ваш ответ"/>
+    <button type="submit">Проверить</button>
+</form>
+
+<p id="result"></p>
+
+<a href="/tasks">Назад к списку</a>
+
+<script>
+    async function checkAnswer(event, form) {
+        event.preventDefault();
+        const input = form.querySelector('input[name="userAnswer"]');
+        const response = await fetch(form.action, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({userAnswer: input.value})
+        });
+        const isCorrect = await response.json();
+        document.getElementById('result').innerText = isCorrect ? "Верно!" : "Неверно!";
+    }
+</script>
+</body>
+</html>

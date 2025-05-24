@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактировать задачу</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f9f9f9;
+            margin: 40px;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #2c3e50;
+        }
+        form {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            padding: 25px 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2980b9;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+        input[type="text"]:focus {
+            border-color: #2980b9;
+            outline: none;
+        }
+        button {
+            width: 100%;
+            padding: 12px 0;
+            background-color: #2980b9;
+            color: white;
+            font-weight: 700;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            box-shadow: 0 3px 6px rgba(41, 128, 185, 0.4);
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #1c5d85;
+        }
+        .back-link {
+            display: block;
+            max-width: 500px;
+            margin: 20px auto 0;
+            text-align: center;
+        }
+        .back-link a {
+            color: #2980b9;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        .back-link a:hover {
+            color: #1c5980;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<h1>Редактирование задачи</h1>
+<form th:action="@{'/tasks/' + ${task.taskUuid} + '/update'}" method="post">
+    <label for="title">Название задачи:</label>
+    <input type="text" id="title" name="title" th:value="${task.title}" required/>
+
+    <label for="text">Текст задачи:</label>
+    <input type="text" id="text" name="text" th:value="${task.text}" required/>
+
+    <label for="answer">Ответ:</label>
+    <input type="text" id="answer" name="correctAnswer" th:value="${task.correctAnswer}" required/>
+
+    <button type="submit">Обновить</button>
+</form>
+<div class="back-link">
+    <a href="/tasks">← Назад к списку</a>
+</div>
+</body>
+</html>

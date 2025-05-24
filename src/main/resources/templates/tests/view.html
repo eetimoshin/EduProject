@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="'Просмотр теста: ' + ${test.title}">Просмотр теста</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+            padding: 40px;
+            color: #2c3e50;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .task {
+            background: white;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+        .task h3 {
+            margin-top: 0;
+        }
+        .back-button {
+            display: block;
+            width: fit-content;
+            margin: 30px auto 0;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        .back-button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+
+<h1 th:text="${test.title}">Название теста</h1>
+
+<div th:each="task : ${test.tasks}">
+    <div class="task">
+        <h3 th:text="${task.title}">Вопрос</h3>
+        <h3 th:text="${task.text}">Текст</h3>
+        <p><strong>Ответ:</strong> <span th:text="${task.correctAnswer}">Ответ</span></p>
+    </div>
+</div>
+
+<a class="back-button" th:href="@{/tests}">← Назад к списку тестов</a>
+
+</body>
+</html>

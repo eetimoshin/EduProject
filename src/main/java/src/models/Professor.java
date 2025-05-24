@@ -14,15 +14,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Student {
+public class Professor {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private String studentUuid;
+    private String professorUuid;
     private String login;
     private String password;
-    private String name;
-    private String surname;
-    private String academicGroup;
-    private String course;
-    private String comment;
 }

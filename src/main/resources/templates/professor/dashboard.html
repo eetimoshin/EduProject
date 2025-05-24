@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Панель преподавателя</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #eef1f5;
+            margin: 0;
+            padding: 40px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+        a, button {
+            display: inline-block;
+            margin: 15px 0;
+            padding: 14px 24px;
+            font-size: 1.1rem;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            border: none;
+            border-radius: 6px;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+        }
+        a:hover, button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Панель преподавателя</h1>
+    <a th:href="@{/courses}">Управление курсами</a><br>
+    <a th:href="@{/tests}">Управление тестами</a><br>
+    <a th:href="@{/tasks}">Управление задачами</a><br>
+    <a th:href="@{/students}">Список студентов</a><br>
+    <a th:href="@{/results}">Журнал результатов тестов</a><br>
+
+    <form th:action="@{/logout}" method="post">
+        <button type="submit">Выйти</button>
+    </form>
+</div>
+
+</body>
+</html>

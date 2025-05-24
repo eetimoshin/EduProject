@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Список курсов</title>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6f8;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 30px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .logout-form {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+        }
+
+        .logout-button {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .logout-button:hover {
+            background-color: #c0392b;
+            transform: scale(1.05);
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #ecf0f1;
+            margin: 10px 0;
+            padding: 15px 20px;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+        }
+
+        li:hover {
+            background-color: #d0dce5;
+        }
+
+        a {
+            text-decoration: none;
+            color: #2980b9;
+            font-weight: bold;
+            display: block;
+        }
+
+        a:hover {
+            color: #1c5980;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <form th:action="@{/logout}" method="post" class="logout-form">
+        <button type="submit" class="logout-button">Выйти</button>
+    </form>
+
+    <h1>Список курсов</h1>
+    <ul>
+        <li th:each="course : ${courses}">
+            <a th:href="@{'/student/courses/' + ${course.courseUuid} + '/tests'}"
+               th:text="${course.name}">Курс</a>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

@@ -1,23 +1,33 @@
 package src.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Builder
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@ToString(exclude = "tests")
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String taskUuid;
+    private String title;
     private String text;
-    private String createdAt;
 
-    @ManyToOne
-    @JoinColumn(name = "testUuid")
+    @JsonIgnore
+    private String correctAnswer;
+
+    private OffsetDateTime createdAt;
+
+    @ManyToMany(mappedBy = "tasks")
     @JsonBackReference
-    private Test test;
+    private List<Test> tests = new ArrayList<>();
 }

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Создать задачу</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f9f9f9;
+            margin: 40px;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+        form {
+            background: white;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 25px 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2980b9;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+        input[type="text"]:focus {
+            border-color: #2980b9;
+            outline: none;
+        }
+        button {
+            display: block;
+            width: 100%;
+            background-color: #27ae60;
+            color: white;
+            font-weight: 700;
+            padding: 12px 0;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            box-shadow: 0 3px 6px rgba(39, 174, 96, 0.4);
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #1e8449;
+        }
+        .back-link {
+            display: block;
+            max-width: 500px;
+            margin: 20px auto 0 auto;
+            text-align: center;
+            font-weight: 600;
+            color: #2980b9;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .back-link:hover {
+            color: #1c5980;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<h1>Создание задачи</h1>
+
+<form action="/tasks" method="post" th:object="${taskRequest}">
+    <label for="title">Название задачи:</label>
+    <input type="text" id="title" th:field="*{title}" placeholder="Введите название задачи" required />
+
+    <label for="text">Текст задачи:</label>
+    <input type="text" id="text" th:field="*{text}" placeholder="Введите текст задачи" required />
+
+    <label for="answer">Ответ:</label>
+    <input type="text" id="answer" th:field="*{correctAnswer}" placeholder="Введите ответ" required />
+
+    <button type="submit">Создать</button>
+</form>
+
+<a class="back-link" href="/tasks">← Назад к списку задач</a>
+
+</body>
+</html>

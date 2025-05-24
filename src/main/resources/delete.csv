@@ -1,4 +1,5 @@
-firstName,surname,lastName,course,login,password
-Иван,Иванович,Иванов,Программирование,ivanov,1234
-Антон,,Сидоров,Физика,sidorov,qwerty
-Максим,Иванович,Дубин,Комбинаторика,maximka,12345
+name,surname,academicGroup,course,login,password,comment
+Иван,Иванович,Группа1,Программирование,ivanov,1234,Отличный студент
+Мария,Сергеевна,Группа2,Анализ данных,petrova,abcd,Активная участница
+Антон,,Группа3,Физика,sidorov,qwerty,
+Дмитрий,Сидоров,Группа2,Информатика,sidorov_d,xyz987,Новые идеи

@@ -9,20 +9,20 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.OffsetDateTime;
+import java.util.Map;
+
 @Entity
 @Builder
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Student {
+public class Result {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    private String resultUuid;
+    private String testUuid;
     private String studentUuid;
-    private String login;
-    private String password;
-    private String name;
-    private String surname;
-    private String academicGroup;
-    private String course;
-    private String comment;
+    private OffsetDateTime attemptTime;
+    private Integer percentage;
 }

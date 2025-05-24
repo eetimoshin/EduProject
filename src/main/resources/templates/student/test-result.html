@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Результат теста</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+            padding: 40px;
+            color: #2c3e50;
+            text-align: center;
+        }
+
+        .result-box {
+            background: white;
+            display: inline-block;
+            padding: 30px 50px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .score {
+            font-size: 24px;
+            font-weight: bold;
+            color: #27ae60;
+            margin: 20px 0;
+        }
+
+        .back-button {
+            display: inline-block;
+            padding: 10px 25px;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+
+<div class="result-box">
+    <h1>Результаты теста</h1>
+    <p class="score" th:text="'Ваш результат: ' + ${percentage} + '%'">Ваш результат: 85%</p>
+    <p>
+        Время прохождения теста:
+        <span th:text="${durationSeconds / 60}"></span> минут
+        <span th:text="${durationSeconds % 60}"></span> секунд
+    </p>
+    <a class="back-button" th:href="@{/student/courses}">← Назад к курсам</a>
+</div>
+
+</body>
+</html>
