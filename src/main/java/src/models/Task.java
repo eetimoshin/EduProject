@@ -21,11 +21,10 @@ public class Task {
     private String taskUuid;
     private String title;
     private String text;
+    private OffsetDateTime createdAt;
 
     @JsonIgnore
     private String correctAnswer;
-
-    private OffsetDateTime createdAt;
 
     @ManyToMany(mappedBy = "tasks")
     @JsonBackReference

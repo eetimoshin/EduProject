@@ -1,23 +1,16 @@
 package src.services;
 
-import org.springframework.ui.Model;
-import org.springframework.util.MultiValueMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import src.models.Task;
-import src.repositories.TaskRepository;
-import src.requests.TaskRequest;
-import src.models.Test;
-import src.repositories.TestRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import src.models.Task;
+import src.models.Test;
+import src.repositories.TaskRepository;
+import src.repositories.TestRepository;
+import src.requests.TaskRequest;
 
 import java.time.OffsetDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @AllArgsConstructor
@@ -49,7 +42,6 @@ public class TaskService {
 
 
     public Task updateTask(String messageIdToUpdate, TaskRequest updatedTaskRequest) {
-//        checkTaskDoesNotExist(updatedTaskRequest.text());
         Task taskToUpdate = showTaskById(messageIdToUpdate);
         taskToUpdate.setTitle(updatedTaskRequest.title());
         taskToUpdate.setText(updatedTaskRequest.text());

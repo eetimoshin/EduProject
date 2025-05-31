@@ -13,10 +13,9 @@ public interface TaskRepository extends JpaRepository<Task, String> {
 
     Optional<Task> findByTaskUuid(String id);
 
-    Optional<Task> findByText(String text);
-
     List<Task> findAllByTests_TestUuid(String testUuid);
 
     @Query("SELECT t FROM Task t JOIN t.tests test WHERE test.testUuid = :testId")
     List<Task> findAllByTestId(@Param("testId") String testId);
+
 }

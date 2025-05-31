@@ -11,7 +11,7 @@ import java.util.List;
 
 @Controller
 @AllArgsConstructor
-public class ProfessorUIController {
+public class ProfessorController {
 
     private final ResultService resultService;
 
@@ -21,5 +21,4 @@ public class ProfessorUIController {
         model.addAttribute("results", results);
         return "professor/dashboard";
     }
-
 }

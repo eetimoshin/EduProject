@@ -1,19 +1,19 @@
 package src.services;
 
+import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.server.ResponseStatusException;
 import src.models.Task;
 import src.models.Test;
 import src.repositories.TaskRepository;
 import src.repositories.TestRepository;
 import src.requests.TestRequest;
-import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.time.OffsetDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.Optional;
 
 @AllArgsConstructor
 @Service
@@ -22,6 +22,9 @@ public class TestService {
     private final TestRepository testRepository;
     private final TaskRepository taskRepository;
 
+    public Optional<Test> findByTestUuid(String uuid) {
+        return testRepository.findByTestUuid(uuid);
+    }
 
     public Test addTaskToTest(String testId, String taskId) {
         Test test = testRepository.findById(testId).orElse(null);
@@ -90,15 +93,6 @@ public class TestService {
     public List<Task> showAllTasks() {
         return taskRepository.findAll();
     }
-
-    public List<Task> showAllTasks(String testId) {
-        return taskRepository.findAllByTests_TestUuid(testId);
-    }
-
-    public List<Task> showTasksByTestId(String testId) {
-        return taskRepository.findAllByTestId(testId);
-    }
-
 
     public Integer getResult(MultiValueMap<String, String> formData, String testId) {
 

@@ -12,11 +12,9 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 public class Course {
-
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String courseUuid;
-
     private String name;
 
     @ManyToMany

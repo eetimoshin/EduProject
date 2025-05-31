@@ -3,36 +3,38 @@ package src.controllers;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import src.models.Student;
-import src.services.StudentService;
+import src.services.StudentDownloadService;
 
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @AllArgsConstructor
 @RequestMapping("/students")
-public class StudentUIController {
+public class StudentDownloadController {
 
-    private final StudentService studentService;
+    private final StudentDownloadService studentDownloadService;
 
     @GetMapping
     public String showStudents(Model model) {
-        List<Student> students = studentService.getAllStudents();
+        List<Student> students = studentDownloadService.getAllStudents();
         model.addAttribute("students", students);
-        return "students/list";
+        return "studentDownload/list";
     }
 
     @PostMapping("/upload")
     public String uploadStudents(@RequestParam("filename") String filename) {
-        studentService.saveStudentsFromCsv(filename);
+        studentDownloadService.saveStudentsFromCsv(filename);
         return "redirect:/students";
     }
 
     @PostMapping("/delete")
     public String deleteStudentsFromCsv(@RequestParam("filename") String filename) {
-        studentService.deleteStudentsFromCsv(filename);
+        studentDownloadService.deleteStudentsFromCsv(filename);
         return "redirect:/students";
     }
 }

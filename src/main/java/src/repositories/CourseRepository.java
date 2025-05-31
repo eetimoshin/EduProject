@@ -11,5 +11,4 @@ public interface CourseRepository extends JpaRepository<Course, String> {
 
     Optional<Course> findByCourseUuid(String id);
 
-
 }

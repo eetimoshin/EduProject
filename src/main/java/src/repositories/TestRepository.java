@@ -14,4 +14,5 @@ public interface TestRepository extends JpaRepository<Test, String> {
     Optional<Test> findByTitle(String title);
 
     List<Test> findAllByTasksContaining(Task task);
+
 }

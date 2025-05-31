@@ -1,16 +1,12 @@
 package src.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.OffsetDateTime;
-import java.util.Map;
 
 @Entity
 @Builder
@@ -21,8 +17,14 @@ public class Result {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String resultUuid;
-    private String testUuid;
-    private String studentUuid;
     private OffsetDateTime attemptTime;
     private Integer percentage;
+
+    @ManyToOne
+    @JoinColumn(name = "student_uuid")
+    private Student student;
+
+    @ManyToOne
+    @JoinColumn(name = "test_uuid")
+    private Test test;
 }

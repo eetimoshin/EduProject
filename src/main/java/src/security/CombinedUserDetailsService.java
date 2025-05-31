@@ -9,16 +9,11 @@ import src.repositories.ProfessorRepository;
 import src.repositories.StudentRepository;
 
 @Service
+@RequiredArgsConstructor
 public class CombinedUserDetailsService implements UserDetailsService {
 
     private final ProfessorRepository professorRepository;
     private final StudentRepository studentRepository;
-
-    public CombinedUserDetailsService(ProfessorRepository professorRepository,
-                                      StudentRepository studentRepository) {
-        this.professorRepository = professorRepository;
-        this.studentRepository = studentRepository;
-    }
 
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
@@ -42,5 +37,4 @@ public class CombinedUserDetailsService implements UserDetailsService {
 
         throw new UsernameNotFoundException("Пользователь не найден: " + login);
     }
-
 }

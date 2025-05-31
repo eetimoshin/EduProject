@@ -6,7 +6,6 @@ import lombok.*;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Builder
@@ -24,12 +23,15 @@ public class Test {
 
     @ManyToMany
     @JoinTable(
-            name = "test_tasks", // имя таблицы-связки
+            name = "test_tasks",
             joinColumns = @JoinColumn(name = "test_uuid"),
             inverseJoinColumns = @JoinColumn(name = "task_uuid")
     )
     private List<Task> tasks = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "tests") // обратная сторона связи с Course
+    @ManyToMany(mappedBy = "tests")
     private List<Course> courses = new ArrayList<>();
+
+    @OneToMany(mappedBy = "test", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Result> results = new ArrayList<>();
 }

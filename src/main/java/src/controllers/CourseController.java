@@ -28,7 +28,7 @@ public class CourseController {
     @GetMapping("/new")
     public String createCourseForm(Model model) {
         model.addAttribute("course", new Course());
-        return "course/new";
+        return "course/create";
     }
 
     @PostMapping
@@ -57,8 +57,6 @@ public class CourseController {
         return "redirect:/courses/" + id;
     }
 
-    // -------------------
-    // Новый: форма редактирования курса
     @GetMapping("/{id}/edit")
     public String editCourseForm(@PathVariable String id, Model model) {
         Optional<Course> courseOpt = courseService.findById(id);
@@ -69,14 +67,12 @@ public class CourseController {
         return "redirect:/courses";
     }
 
-    // Новый: обработка редактирования
     @PostMapping("/{id}/edit")
     public String updateCourse(@PathVariable String id, @ModelAttribute Course updatedCourse) {
         courseService.updateCourse(id, updatedCourse);
         return "redirect:/courses/" + id;
     }
 
-    // Новый: удаление курса
     @PostMapping("/{id}/delete")
     public String deleteCourse(@PathVariable String id) {
         courseService.deleteCourse(id);

@@ -1,9 +1,7 @@
 package src.services;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 import src.models.Course;
 import src.models.Test;
 import src.repositories.CourseRepository;
@@ -13,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class CourseService {
 
     private final CourseRepository courseRepository;
@@ -69,11 +67,5 @@ public class CourseService {
         Optional<Course> courseOpt = courseRepository.findById(courseUuid);
         Course course = courseOpt.get();
         return course.getTests().stream().toList();
-    }
-
-
-    public Course showCourseById(String id) {
-        return courseRepository.findByCourseUuid(id).orElseThrow(
-                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Course with ID: " + id + "  not found"));
     }
 }
