@@ -24,5 +24,9 @@ public class Course {
             inverseJoinColumns = @JoinColumn(name = "test_uuid")
     )
     private Set<Test> tests = new HashSet<>();
+
+    @ManyToOne
+    @JoinColumn(name = "professor_uuid")
+    private Professor professor;
 }
 
