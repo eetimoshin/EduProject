@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Загрузчик классов</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #eef1f5;
+            margin: 0;
+            padding: 40px;
+            position: relative;
+        }
+        .back-link {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            padding: 10px 18px;
+            font-size: 1rem;
+            background-color: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            transition: background-color 0.3s ease;
+            z-index: 1000;
+        }
+        .back-link:hover {
+            background-color: #2980b9;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+        form {
+            margin-top: 20px;
+        }
+        input[type="text"] {
+            padding: 12px 16px;
+            width: 70%;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 12px 24px;
+            font-size: 1.1rem;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: inline-block;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .result {
+            margin-top: 30px;
+            font-size: 1.1rem;
+            color: #2c3e50;
+            padding: 20px;
+            background: #f4f7fa;
+            border-radius: 6px;
+        }
+        .error {
+            color: #c0392b;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <a class="back-link" href="/dashboard">⬅ Назад в панель администратора</a>
+
+    <h1>Загрузить Java-класс</h1>
+
+    <form method="post" th:action="@{/plugin}">
+        <input type="text" name="className" placeholder="Введите имя класса, например Hello" required />
+        <br>
+        <button type="submit">Загрузить и выполнить</button>
+    </form>
+
+    <div class="result" th:if="${message}">
+        <strong>Результат:</strong>
+        <p th:text="${message}" th:classappend="${message.startsWith('Ошибка') ? ' error' : ''}"></p>
+    </div>
+</div>
+
+</body>
+</html>

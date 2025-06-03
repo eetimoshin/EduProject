@@ -26,6 +26,7 @@ public class CourseService {
     }
 
     public void saveCourse(Course course) {
+//        course.setProfessor();
         courseRepository.save(course);
     }
 
